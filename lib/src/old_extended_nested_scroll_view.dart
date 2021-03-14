@@ -620,7 +620,9 @@ class _NestedScrollCoordinator
 
   bool get hasScrolledBody {
     for (final _NestedScrollPosition position in _currentInnerPositions) {
-      assert(position.hasContentDimensions && position.hasPixels);
+      if (!position.hasContentDimensions || !position.hasPixels) {
+        return false;
+      }
       if (position.pixels > position.minScrollExtent) {
         return true;
       }
